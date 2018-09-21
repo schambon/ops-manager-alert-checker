@@ -71,5 +71,8 @@ Examples
 ========
 
 Check host node1.vagrant.dev for HOST_DOWN alert:
-```python opscheck_bis.py --url https://opsmgr:8443 --username admin@localhost.com --key XXXX --cacert /etc/pki/cacert.crt --project <projectid> --host node1.vagrant.dev --eventTypeName HOST_DOWN```
+
+```bash
+python opscheck_bis.py --url https://opsmgr:8443 --username admin@localhost.com --key XXXX --cacert /etc/pki/cacert.crt --project <projectid> --host node1.vagrant.dev --eventTypeName HOST_DOWN
+```
   
