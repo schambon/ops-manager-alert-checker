@@ -15,6 +15,7 @@ Usage
 opscheck.py
 -----------
 
+```bash
 usage: opscheck.py [-h] --url URL --username USERNAME --key KEY
                    [--command COMMAND] --eventTypeName EVENTTYPENAME
                    [--metric METRIC] [--tag TAG]
@@ -35,10 +36,12 @@ Alert filter:
                         Event type that raised the alert
   --metric METRIC       Metric (in case of OUTSIDE_METRIC_THRESHOLD
   --tag TAG             Restrict to groups with tag
-  
+```
+
 opscheck_bis.py
 ---------------
 
+```bash
 usage: opscheck_bis.py [-h] --url URL --username USERNAME --key KEY
                        [--cacert CACERT] --project PROJECT --host HOST
                        --eventTypeName EVENTTYPENAME [--metric METRIC]
@@ -62,10 +65,11 @@ Alert filter:
                         Event type that raised the alert
   --metric METRIC       Metric (in case of OUTSIDE_METRIC_THRESHOLD
   --severity SEVERITY   Integer code to return in case of alert (default: 2)
+```
   
 Examples
 ========
 
 Check host node1.vagrant.dev for HOST_DOWN alert:
-python opscheck_bis.py --url https://opsmgr:8443 --username admin@localhost.com --key XXXX --cacert /etc/pki/cacert.crt --project <projectid> --host node1.vagrant.dev --eventTypeName HOST_DOWN
+```python opscheck_bis.py --url https://opsmgr:8443 --username admin@localhost.com --key XXXX --cacert /etc/pki/cacert.crt --project <projectid> --host node1.vagrant.dev --eventTypeName HOST_DOWN```
   
