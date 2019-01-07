@@ -13,6 +13,15 @@ def check_alerts(args):
     if args.eventTypeName == "OUTSIDE_METRIC_THRESHOLD":
         alerts = [ a for a in alerts if a["metricName"] == args.metric ]
 
+    if args.globalAlerts:
+        global_alerts_r = requests.get("%s/api/public/v1.0/globalAlerts?status=OPEN" % args.url, verify=args.cacert, auth=HTTPDigestAuth(args.username, args.key))
+        global_alerts_r.raise_for_status()
+        global_alerts_j = global_alerts_r.json()
+        global_alerts = [ a for a in global_alerts_j["results"] if a["eventTypeName"] == args.eventTypeName ]
+        if args.eventTypeName == "OUTSIDE_METRIC_THRESHOLD":
+            global_alerts = [ a for a in global_alerts if a["metricName"] == args.metric ]
+        alerts = alerts + global_alerts
+
     for alert in alerts:
         if alert["eventTypeName"] == "OUTSIDE_METRIC_THRESHOLD":
             msg = "Metric: %s, value: %f %s" % (alert["metricName"], alert["currentValue"]["number"], alert["currentValue"]["units"])
@@ -45,6 +54,7 @@ if __name__ == "__main__":
     required.add_argument("--username", help="Ops Manager user name (email)", required=True)
     required.add_argument("--key", help="API key to use", required=True)
     required.add_argument("--cacert", help="Path to CA certificate(s)", required=False)
+    required.add_argument("--globalAlerts", help="Also check for global alerts (default: false)", type=bool, default=False, required=False)
     alert = parser.add_argument_group("Alert filter")
     alert.add_argument("--project", help="ProjectId to check", required=True)
     alert.add_argument("--host", help="Host to check for alerts", required=True)
